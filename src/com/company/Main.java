@@ -8,7 +8,7 @@ public class Main {
 
         do {
             field.viewField();
-            field.shot();
+            field.shoot();
         } while (true);
     }
 }

@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Random;
 
-public class Ships {
+public class Ship {
     Random random = new Random();
     final int sizeOfShip4Deck = 4;
     final int sizeOfShip3Deck = 3;
@@ -18,7 +18,12 @@ public class Ships {
     int positionY;
 
 
-    void ship() {
+    boolean shipRandomDirection() {
+        directionShip = random.nextBoolean();
+        return directionShip;
+    }
+
+    void makeShip() {
 
 
     }

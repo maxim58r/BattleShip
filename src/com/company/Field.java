@@ -4,7 +4,6 @@ public class Field {
     final int ROWS = 11;
     final int COLS = 10;
     String[][] sizeOfField = new String[ROWS][COLS];
-    Player player = new Player();
 
     void init() {
         for (int i = 0; i < ROWS; i++) {
@@ -26,11 +25,29 @@ public class Field {
         }
     }
 
-    void shot() {
+    void shoot() {
+        Player player = new Player();
+
         PointToShoot pointToShoot = player.shotCoordinate();
         int xCoordinate = pointToShoot.getX();
         int yCoordinate = pointToShoot.getY();
 
-        sizeOfField[xCoordinate][yCoordinate - 1] = "X";
+        if (sizeOfField[xCoordinate][yCoordinate - 1] == "X") {
+            System.out.println("Already shot here");
+
+        }
+        if (sizeOfField[xCoordinate][yCoordinate - 1] == ".") {
+            System.out.println("Not hit the ship");
+            sizeOfField[xCoordinate][yCoordinate - 1] = "X";
+
+        }
+        if (sizeOfField[xCoordinate][yCoordinate - 1] == "O") {
+            System.out.println("Hit the ship");
+            sizeOfField[xCoordinate][yCoordinate - 1] = "X";
+
+        }
+    }
+
+    void endGame() {
     }
 }
