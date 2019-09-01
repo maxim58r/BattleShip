@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.Scanner;
-
 public class Field {
-    //    Scanner scanner = new Scanner(System.in);
     final int ROWS = 11;
     final int COLS = 10;
     String[][] sizeOfField = new String[ROWS][COLS];
@@ -30,7 +27,6 @@ public class Field {
     }
 
     void shot() {
-
         PointToShoot pointToShoot = player.shotCoordinate();
         int xCoordinate = pointToShoot.getX();
         int yCoordinate = pointToShoot.getY();
@@ -38,4 +34,3 @@ public class Field {
         sizeOfField[xCoordinate][yCoordinate - 1] = "X";
     }
 }
-
