@@ -1,10 +1,10 @@
 package com.company;
 
-public class PointToShoot {
-    private int x;
-    private int y;
+public class SetPointShip {
+    int x;
+    int y;
 
-    public PointToShoot(int y, int x) {
+    public SetPointShip( int y, int x) {
         this.x = x;
         this.y = y;
     }

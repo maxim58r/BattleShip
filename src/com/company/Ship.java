@@ -4,27 +4,21 @@ import java.util.Random;
 
 public class Ship {
     Random random = new Random();
-    final int sizeOfShip4Deck = 4;
-    final int sizeOfShip3Deck = 3;
-    final int sizeOfShip2Deck = 2;
-    final int sizeOfShip1Deck = 1;
-    final int amountOfShip4Deck = 1;
-    final int amountOfShip3Deck = 2;
-    final int amountOfShip2Deck = 3;
-    final int amountOfShip1Deck = 4;
-    final int amountAllShips = 10;
     boolean directionShip;
-    int positionX;
-    int positionY;
-
+    int decks;
 
     boolean shipRandomDirection() {
         directionShip = random.nextBoolean();
         return directionShip;
     }
 
-    void makeShip() {
+    SetPointShip makeShip(int limitLenght) {
+        int xCoordinate;
+        int yCoordinate;
+        xCoordinate = 1 + random.nextInt(limitLenght);
+        yCoordinate = 1 + random.nextInt(limitLenght);
 
-
+        return new SetPointShip(xCoordinate, yCoordinate);
     }
+
 }
