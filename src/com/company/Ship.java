@@ -2,10 +2,9 @@ package com.company;
 
 import java.util.Random;
 
-public class Ship {
-    Random random = new Random();
-    boolean directionShip;
-    int decks;
+class Ship {
+    private Random random = new Random();
+    private boolean directionShip;
 
     boolean shipRandomDirection() {
         directionShip = random.nextBoolean();
@@ -20,5 +19,4 @@ public class Ship {
 
         return new SetPointShip(xCoordinate, yCoordinate);
     }
-
 }

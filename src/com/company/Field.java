@@ -1,9 +1,9 @@
 package com.company;
 
-public class Field {
+class Field {
     private final int ROWS = 11;
     private final int COLS = 10;
-    String[][] sizeOfField = new String[ROWS][COLS];
+    private String[][] sizeOfField = new String[ROWS][COLS];
 
     void init() {
         for (int i = 0; i < ROWS; i++) {
