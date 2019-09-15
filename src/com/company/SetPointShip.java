@@ -1,18 +1,19 @@
 package com.company;
 
-class SetPointShip {
+public class SetPointShip {
     private int x;
     private int y;
 
-    SetPointShip(int y, int x) {
+    public SetPointShip( int y, int x) {
         this.x = x;
         this.y = y;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
-    int getY() {
+
+    public int getY() {
         return y;
     }
 }

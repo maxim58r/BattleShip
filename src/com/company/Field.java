@@ -1,14 +1,14 @@
 package com.company;
 
-class Field {
+public class Field {
     private final int ROWS = 11;
     private final int COLS = 10;
-    private String[][] sizeOfField = new String[ROWS][COLS];
+    private String[][] coordinateOnField = new String[ROWS][COLS];
 
     void init() {
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
-                sizeOfField[i][j] = ".";
+                coordinateOnField[i][j] = ".";
             }
         }
     }
@@ -19,32 +19,36 @@ class Field {
             for (int j = 0; j < COLS; j++) {
                 if (i == 0) {
                     System.out.print(j + 1 + "\t");
-                } else System.out.print(sizeOfField[i][j] + "\t");
+                } else System.out.print(coordinateOnField[i][j] + "\t");
             }
             System.out.println();
         }
     }
 
-    void setShip(int deck, int lenghtLimit) {
+    void setShip(int deck, int lengthLimit) {
         Ship ship = new Ship();
-        SetPointShip setPointShip = ship.makeShip(lenghtLimit);
+        SetPointShip setPointShip = ship.makeShip(lengthLimit);
         boolean direction = ship.shipRandomDirection();
         int xCoordinate = setPointShip.getX();
         int yCoordinate = setPointShip.getY();
         System.out.println(xCoordinate + " " + yCoordinate);
         System.out.println(direction);
 
+
         if (direction) {
-            if ((xCoordinate >= 1 && yCoordinate >= 1) || (xCoordinate <= lenghtLimit && yCoordinate <= 10)) {
+            if ((xCoordinate >= 1 && yCoordinate >= 1) || (xCoordinate <= lengthLimit && yCoordinate <= 10)) {
                 for (int i = 0; i < deck; i++) {
-                    sizeOfField[yCoordinate][xCoordinate + (i - 1)] = "O";
+                    if (!(coordinateOnField[yCoordinate + 1][xCoordinate + (i - 1)] == "O") && !(coordinateOnField[yCoordinate - 1][xCoordinate + (i - 1)] == "O")) {
+                        coordinateOnField[yCoordinate][xCoordinate + (i - 1)] = "O";
+                    }
                 }
             }
         }
         if (!direction) {
-            if (xCoordinate >= 1 && yCoordinate >= 1 && xCoordinate <= 10 && yCoordinate <= lenghtLimit) {
+            if (xCoordinate >= 1 && yCoordinate >= 1 && xCoordinate <= 10 && yCoordinate <= lengthLimit) {
                 for (int i = 0; i < deck; i++) {
-                    sizeOfField[yCoordinate + i][xCoordinate - 1] = "O";
+                    if (!(coordinateOnField[yCoordinate + i][xCoordinate] == "O") && !(coordinateOnField[yCoordinate + i][xCoordinate - 2] == "O"))
+                        coordinateOnField[yCoordinate + i][xCoordinate - 1] = "O";
                 }
             }
         }
@@ -57,18 +61,18 @@ class Field {
         int xCoordinate = pointToShoot.getX();
         int yCoordinate = pointToShoot.getY();
 
-        if (sizeOfField[xCoordinate][yCoordinate - 1].equals("X")) {
+        if (coordinateOnField[xCoordinate][yCoordinate - 1].equals("X")) {
             System.out.println("Already shot here");
 
         }
-        if (sizeOfField[xCoordinate][yCoordinate - 1].equals(".")) {
+        if (coordinateOnField[xCoordinate][yCoordinate - 1].equals(".")) {
             System.out.println("Not hit the ship");
-            sizeOfField[xCoordinate][yCoordinate - 1] = "X";
+            coordinateOnField[xCoordinate][yCoordinate - 1] = "X";
 
         }
-        if (sizeOfField[xCoordinate][yCoordinate - 1].equals("O")) {
+        if (coordinateOnField[xCoordinate][yCoordinate - 1].equals("O")) {
             System.out.println("Hit the ship");
-            sizeOfField[xCoordinate][yCoordinate - 1] = "+";
+            coordinateOnField[xCoordinate][yCoordinate - 1] = "+";
 
         }
     }
@@ -76,7 +80,7 @@ class Field {
     boolean notEndGame() {
         for (int i = 0; i < ROWS; i++)
             for (int j = 0; j < COLS; j++)
-                if (sizeOfField[i][j].equals("O")) {
+                if (coordinateOnField[i][j].equals("O")) {
                     return true;
                 }
         System.out.println("End game");

@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Scanner;
 
-class Player {
+public class Player {
     private Scanner scanner = new Scanner(System.in);
 
     PointToShoot shotCoordinate() {
