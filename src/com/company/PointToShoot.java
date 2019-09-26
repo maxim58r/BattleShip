@@ -1,19 +1,19 @@
 package com.company;
 
-public class PointToShoot {
+class PointToShoot {
     private int x;
     private int y;
 
-    public PointToShoot(int y, int x) {
+    PointToShoot(int y, int x) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 }

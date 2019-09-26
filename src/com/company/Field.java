@@ -1,89 +1,100 @@
 package com.company;
 
-public class Field {
-    private final int ROWS = 11;
-    private final int COLS = 10;
-    private String[][] coordinateOnField = new String[ROWS][COLS];
+import java.util.Random;
 
-    void init() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLS; j++) {
-                coordinateOnField[i][j] = ".";
-            }
-        }
-    }
+        class Field {
+            private Random random = new Random();
+            private final int SIZE = 10;
+            private String[][] coordinateOnField = new String[SIZE][SIZE];
 
-    void viewField() {
-        for (int i = 0; i < ROWS; i++) {
-            System.out.print(i + "\t");
-            for (int j = 0; j < COLS; j++) {
-                if (i == 0) {
-                    System.out.print(j + 1 + "\t");
-                } else System.out.print(coordinateOnField[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    }
-
-    void setShip(int deck, int lengthLimit) {
-        Ship ship = new Ship();
-        SetPointShip setPointShip = ship.makeShip(lengthLimit);
-        boolean direction = ship.shipRandomDirection();
-        int xCoordinate = setPointShip.getX();
-        int yCoordinate = setPointShip.getY();
-        System.out.println(xCoordinate + " " + yCoordinate);
-        System.out.println(direction);
-
-
-        if (direction) {
-            if ((xCoordinate >= 1 && yCoordinate >= 1) || (xCoordinate <= lengthLimit && yCoordinate <= 10)) {
-                for (int i = 0; i < deck; i++) {
-                    if (!(coordinateOnField[yCoordinate + 1][xCoordinate + (i - 1)] == "O") && !(coordinateOnField[yCoordinate - 1][xCoordinate + (i - 1)] == "O")) {
-                        coordinateOnField[yCoordinate][xCoordinate + (i - 1)] = "O";
+            void init() {
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        coordinateOnField[j][i] = ".";
                     }
                 }
             }
-        }
-        if (!direction) {
-            if (xCoordinate >= 1 && yCoordinate >= 1 && xCoordinate <= 10 && yCoordinate <= lengthLimit) {
-                for (int i = 0; i < deck; i++) {
-                    if (!(coordinateOnField[yCoordinate + i][xCoordinate] == "O") && !(coordinateOnField[yCoordinate + i][xCoordinate - 2] == "O"))
-                        coordinateOnField[yCoordinate + i][xCoordinate - 1] = "O";
+
+            void viewField() {
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        System.out.print(coordinateOnField[j][i] + "\t");
+                    }
+                    System.out.println();
                 }
             }
-        }
-    }
 
-    void shoot() {
-        Player player = new Player();
+            void setShip(int decks, int countShip) {
 
-        PointToShoot pointToShoot = player.shotCoordinate();
-        int xCoordinate = pointToShoot.getX();
-        int yCoordinate = pointToShoot.getY();
+                CheckFreeSpace checkFreeSpace = new CheckFreeSpace();
 
-        if (coordinateOnField[xCoordinate][yCoordinate - 1].equals("X")) {
-            System.out.println("Already shot here");
+                while (countShip > 0) {
+                    int direction = random.nextInt(2);
 
-        }
-        if (coordinateOnField[xCoordinate][yCoordinate - 1].equals(".")) {
-            System.out.println("Not hit the ship");
-            coordinateOnField[xCoordinate][yCoordinate - 1] = "X";
+                    int xCoordinate;
+                    int yCoordinate;
+                    if (direction == 0) {
+                        xCoordinate = random.nextInt(SIZE - decks);
+                        yCoordinate = random.nextInt(SIZE);
+                    } else {
+                        xCoordinate = random.nextInt(SIZE);
+                        yCoordinate = random.nextInt(SIZE - decks);
+                    }
 
-        }
-        if (coordinateOnField[xCoordinate][yCoordinate - 1].equals("O")) {
-            System.out.println("Hit the ship");
-            coordinateOnField[xCoordinate][yCoordinate - 1] = "+";
+                    System.out.println(xCoordinate + " " + yCoordinate);
+                    System.out.println(direction == 0 ? "horizontal" : "vertical");
 
-        }
-    }
+                    if (checkFreeSpace.check(direction, xCoordinate, yCoordinate, decks, coordinateOnField)) {
+                        for (int i = 0; i < decks; i++) {
+                            coordinateOnField[xCoordinate][yCoordinate] = "O";
 
-    boolean notEndGame() {
-        for (int i = 0; i < ROWS; i++)
-            for (int j = 0; j < COLS; j++)
-                if (coordinateOnField[i][j].equals("O")) {
-                    return true;
+                            switch (direction) {
+                                case 0:/*horizontal*/
+                                    xCoordinate++;
+                                    break;
+                                case 1:/*vertical*/
+                                    yCoordinate++;
+                                    break;
+                            }
+                        }
+                        countShip--;
+                    }
+
                 }
-        System.out.println("End game");
-        return false;
-    }
-}
+
+            }
+
+            void shoot() {
+                Player player = new Player();
+
+                PointToShoot pointToShoot = player.shotCoordinate();
+                int y = pointToShoot.getX();
+                int x = pointToShoot.getY();
+
+                if (coordinateOnField[x - 1][y - 1].equals("X")) {
+                    System.out.println("Already shot here");
+
+                }
+                if (coordinateOnField[x - 1][y - 1].equals(".")) {
+                    System.out.println("Not hit the ship");
+                    coordinateOnField[x - 1][y - 1] = "X";
+
+                }
+                if (coordinateOnField[x - 1][y - 1].equals("O")) {
+                    System.out.println("Hit the ship");
+                    coordinateOnField[x - 1][y - 1] = "+";
+
+                }
+            }
+
+            boolean notEndGame() {
+                for (int i = 0; i < SIZE; i++)
+                    for (int j = 0; j < SIZE; j++)
+                        if (coordinateOnField[j][i].equals("O")) {
+                            return true;
+                        }
+                System.out.println("End game");
+                return false;
+            }
+
+        }
