@@ -1,7 +1,6 @@
 package com.company;
 
-
-class CheckFreeSpace {
+class CheckFreeSpaceForShip {
 
     boolean check(int direction, int x, int y, int decks, String[][] coordinateOnField) {
         int startX;
@@ -21,16 +20,13 @@ class CheckFreeSpace {
         else if (y == 9 && direction == 0) endY = y;
         else if (y < 9 && direction == 0) endY = y + 1;
 
-
         for (int i = startX; i <= endX; i++) {
             for (int j = startY; j <= endY; j++) {
                 if(coordinateOnField[i][j].equals("O")) {
                     return false;
                 }
-
             }
         }
         return true;
     }
 }
-

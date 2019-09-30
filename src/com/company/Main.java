@@ -1,6 +1,6 @@
 package com.company;
 
-public class Main {
+class Main {
     public static void main(String[] args) {
         Field field = new Field();
         field.init();

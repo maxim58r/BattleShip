@@ -2,11 +2,11 @@ package com.company;
 
 import java.util.Scanner;
 
+@SuppressWarnings("SuspiciousNameCombination")
 class Player {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     PointToShoot shotCoordinate() {
-
         System.out.print("Enter coordinate shoot by x: ");
         int xCoordinate = scanner.nextInt();
         while (!(xCoordinate > 0 && xCoordinate < 11)) {

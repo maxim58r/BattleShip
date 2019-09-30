@@ -1,8 +1,8 @@
 package com.company;
 
 class PointToShoot {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     PointToShoot(int y, int x) {
         this.x = x;
