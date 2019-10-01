@@ -26,8 +26,6 @@ class Field {
 
     void setShip(int decks, int countShip) {
 
-        CheckFreeSpaceForShip checkFreeSpaceForShip = new CheckFreeSpaceForShip();
-
         while (countShip > 0) {
             int direction = random.nextInt(2);
 
@@ -44,6 +42,7 @@ class Field {
             System.out.println(xCoordinate + " " + yCoordinate);
             System.out.println(direction == 0 ? "horizontal" : "vertical");
 
+            CheckFreeSpaceForShip checkFreeSpaceForShip = new CheckFreeSpaceForShip();
             if (checkFreeSpaceForShip.check(direction, xCoordinate, yCoordinate, decks, coordinateOnField)) {
                 for (int i = 0; i < decks; i++) {
                     coordinateOnField[xCoordinate][yCoordinate] = "O";

@@ -3,11 +3,13 @@ package com.company;
 class Main {
     public static void main(String[] args) {
         Field field = new Field();
+
         field.init();
-        field.setShip(4, 1);
-        field.setShip(3, 2);
-        field.setShip(2, 3);
-        field.setShip(1, 4);
+        int j = 0;
+        for (int i = 4; i > 0; i--) {
+            j++;
+            field.setShip(i, j);
+        }
         field.viewField();
 
         do {
